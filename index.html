@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <form action="thankyou.html" method="get">
+        <label for="customerName">Name:</label>
+        <input type="text" name="customerName" id="customerName" placeholder="Enter your name">
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="XXX-XXX-XXXX">
+
+        <label for="pizzaType">Pizza Type:</label>
+        <select id="pizzaType" name="pizzaType">
+
+        </select>
+        <label for="quantity">Quantity:</label>
+        <select id="quantity" name="quantity">
+
+        </select>
+
+        <button type="button" onclick="validateForm()">Submit</button>
+
+    </form>
+</body>
+
+</html>
