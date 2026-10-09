@@ -1,149 +1,239 @@
+/* ==========================================================
+   Pizza order form
+   Direction: a pizzeria order slip on a gingham tablecloth.
+   Written to work whether this file loads before or after
+   Bootstrap (selectors are prefixed to beat Bootstrap's).
+   ========================================================== */
+
 :root {
-            --basil: #1f3d2b;
-            --basil-deep: #162c1f;
-            --tomato: #d62f1f;
-            --tomato-dark: #b52518;
-            --crust: #f3d9a4;
-            --ink: #23201c;
-            --muted: #6b655c;
-            --line: #e4ded2;
-        }
+  --tomato: #d2301a;
+  --tomato-dark: #a82411;
+  --basil: #2f6b3a;
+  --char: #231f1c;
+  --paper: #ffffff;
+  --crust: #fff3d6;
+  --error-bg: #ffe7e1;
+  --error-text: #8c1c0b;
+}
 
-        html,
-        body {
-            min-height: 100%;
-        }
+/* ---------- Page: gingham tablecloth ---------- */
+html body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--char);
+  background-color: #fff;
+  background-image:
+    linear-gradient(rgba(210, 48, 26, 0.5) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(210, 48, 26, 0.5) 50%, transparent 50%);
+  background-size: 56px 56px;
+}
 
-        body {
-            font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
-            color: var(--ink);
-            background-color: var(--basil);
-            /* checkered tablecloth */
-            background-image:
-                linear-gradient(45deg, var(--basil-deep) 25%, transparent 25%, transparent 75%, var(--basil-deep) 75%),
-                linear-gradient(45deg, var(--basil-deep) 25%, transparent 25%, transparent 75%, var(--basil-deep) 75%);
-            background-size: 56px 56px;
-            background-position: 0 0, 28px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-        }
+/* ---------- The order slip ---------- */
+html body form {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0;
+  padding: 2rem 2rem 2.25rem;
+  background: var(--paper);
+  border: 2px solid var(--char);
+  border-radius: 6px;
+  box-shadow: 8px 8px 0 var(--char);
+}
 
-        form {
-            width: 100%;
-            max-width: 460px;
-            background: #fffdf8;
-            border-radius: 14px;
-            padding: 2.25rem 2rem 2rem;
-            box-shadow: 0 24px 48px rgba(0, 0, 0, .35);
-            border-top: 8px solid var(--tomato);
-        }
+/* Title comes from CSS so the HTML stays untouched */
+form::before {
+  content: "Order a pizza";
+  display: block;
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--tomato);
+}
 
-        form::before {
-            content: "Order a pizza";
-            display: block;
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: .35rem;
-        }
+form .form-intro {
+  margin: 0.5rem 0 1.5rem;
+  padding-bottom: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--char);
+  border-bottom: 2px dashed var(--char); /* the tear-off line */
+}
 
-        form::after {
-            content: none;
-        }
+/* ---------- Labels ---------- */
+html body form label {
+  display: block;
+  margin: 1.25rem 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--char);
+}
 
-        .form-intro {
-            color: var(--muted);
-            margin-bottom: 1.75rem;
-        }
+/* ---------- Fields ---------- */
+html body form input[type="text"],
+html body form input[type="tel"],
+html body form select {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  font-family: inherit;
+  font-size: 1rem; /* 16px stops iOS zooming on focus */
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--char);
+  background-color: var(--paper);
+  border: 2px solid var(--char);
+  border-radius: 4px;
+  box-shadow: none;
+  transition: background-color 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
 
-        label {
-            display: block;
-            font-weight: 600;
-            margin: 1.1rem 0 .35rem;
-        }
+form input::placeholder {
+  color: #8a827b;
+}
 
-        input[type="text"],
-        input[type="tel"],
-        select {
-            display: block;
-            width: 100%;
-            height: 3rem;
-            padding: 0 .9rem;
-            font: inherit;
-            color: var(--ink);
-            background-color: #fff;
-            border: 1.5px solid var(--line);
-            border-radius: 8px;
-            transition: border-color .15s, box-shadow .15s;
-        }
+form select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 2.4rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1.5l6 6 6-6' fill='none' stroke='%23231f1c' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+}
 
-        input::placeholder {
-            color: #a8a195;
-        }
+html body form input:focus,
+html body form select:focus {
+  outline: none;
+  background-color: var(--crust);
+  box-shadow: 4px 4px 0 var(--tomato);
+}
 
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--basil);
-            box-shadow: 0 0 0 3px rgba(31, 61, 43, .2);
-        }
+/* ---------- Pizza type + quantity side by side ---------- */
+form .row-pair {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-top: 0;
+}
 
-        #customerNameErrorBox {
-            display: block;
-            min-height: 1.25rem;
-            margin-top: .3rem;
-            font-size: .875rem;
-            font-weight: 600;
-            color: var(--tomato-dark);
-        }
+form .row-pair > div {
+  min-width: 0; /* lets selects shrink inside the grid */
+}
 
-        /* put pizza type and quantity side by side on wider screens */
-        .row-pair {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0 1rem;
-        }
+/* ---------- Validation: your JS adds "alert alert-danger" ----------
+   Bootstrap's .alert adds padding, margin and a pink fill meant for
+   banners. These rules turn that into a proper invalid-field look. */
+html body form input.alert,
+html body form select.alert {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 4px;
+}
 
-        @media (min-width: 480px) {
-            .row-pair {
-                grid-template-columns: 2fr 1fr;
-            }
-        }
+html body form select.alert {
+  padding-right: 2.4rem;
+}
 
-        #submitButton {
-            display: block;
-            width: 100%;
-            margin-top: 1.75rem;
-            padding: .85rem 1rem;
-            font: inherit;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #fff;
-            background: var(--tomato);
-            border: 0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color .15s, transform .1s;
-        }
+html body form input.alert-danger,
+html body form select.alert-danger {
+  color: var(--error-text);
+  background-color: var(--error-bg);
+  border: 2px solid var(--tomato);
+  box-shadow: 4px 4px 0 var(--tomato);
+  animation: nudge 0.35s ease-in-out;
+}
 
-        #submitButton:hover {
-            background: var(--tomato-dark);
-        }
+html body form input.alert-danger:focus,
+html body form select.alert-danger:focus {
+  background-color: var(--error-bg);
+  box-shadow: 4px 4px 0 var(--tomato-dark);
+}
 
-        #submitButton:active {
-            transform: translateY(1px);
-        }
+/* Error message under the name field */
+#customerNameErrorBox, #phoneNumberErrorBox, #pizzaTypeErrorBox, #quantityErrorBox {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--error-text);
+}
 
-        #submitButton:focus-visible {
-            outline: 3px solid var(--crust);
-            outline-offset: 2px;
-        }
+#customerNameErrorBox:empty, #phoneNumberErrorBox:empty, #pizzaTypeErrorBox:empty, #quantityErrorBox:empty {
+  display: none;
+}
 
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                transition: none !important;
-            }
-        }
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-5px); }
+  75%      { transform: translateX(5px); }
+}
+
+/* ---------- Submit ---------- */
+html body form button[type="submit"] {
+  display: block;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.95rem 1rem;
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #fff;
+  background-color: var(--tomato);
+  border: 2px solid var(--char);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 var(--char);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s, background-color 0.15s;
+}
+
+html body form button[type="submit"]:hover {
+  background-color: var(--tomato-dark);
+}
+
+html body form button[type="submit"]:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--char);
+}
+
+html body form button[type="submit"]:focus-visible {
+  outline: 3px solid var(--basil);
+  outline-offset: 3px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 420px) {
+  html body form {
+    padding: 1.5rem 1.25rem 1.75rem;
+    box-shadow: 6px 6px 0 var(--char);
+  }
+
+  form .row-pair {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  form .row-pair > div + div label {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body form input.alert-danger,
+  html body form select.alert-danger {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+  }
+}

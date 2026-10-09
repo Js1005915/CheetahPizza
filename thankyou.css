@@ -1,0 +1,178 @@
+/* ==========================================================
+   Thank-you page: a thermal-paper receipt on the same gingham
+   tablecloth as the order form.
+   Labels (Name, Phone, Pizza, Quantity) come from CSS, so your
+   script can keep filling in the values with textContent.
+   ========================================================== */
+
+:root {
+  --tomato: #d2301a;
+  --char: #231f1c;
+  --paper: #fffdf8;
+  --muted: #6f675f;
+}
+
+/* ---------- Page: gingham tablecloth ---------- */
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  color: var(--char);
+  background-color: #fff;
+  background-image:
+    linear-gradient(rgba(210, 48, 26, 0.5) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(210, 48, 26, 0.5) 50%, transparent 50%);
+  background-size: 56px 56px;
+}
+
+/* ---------- The receipt ---------- */
+#recieptArea {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  box-sizing: border-box;
+  padding: 2rem 1.75rem 2.25rem;
+  background: var(--paper);
+  /* drop-shadow follows the zigzag edges, box-shadow would not */
+  filter: drop-shadow(6px 6px 0 var(--char));
+}
+
+/* Torn zigzag edges, top and bottom */
+#recieptArea::before,
+#recieptArea::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-repeat: repeat-x;
+  background-size: 16px 8px;
+}
+
+#recieptArea::before {
+  top: -7px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='8' viewBox='0 0 16 8'%3E%3Cpolygon points='0,8 8,0 16,8' fill='%23fffdf8'/%3E%3C/svg%3E");
+}
+
+#recieptArea::after {
+  bottom: -7px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='8' viewBox='0 0 16 8'%3E%3Cpolygon points='0,0 16,0 8,8' fill='%23fffdf8'/%3E%3C/svg%3E");
+}
+
+/* ---------- Heading ---------- */
+#recieptArea h1 {
+  margin: 0 0 1.25rem;
+  padding-bottom: 1.25rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--tomato);
+  border-bottom: 2px dashed var(--char);
+}
+
+/* ---------- Line items: label on the left, value on the right ---------- */
+#recieptArea h2,
+#recieptArea h3,
+#recieptArea h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.55rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: right;
+  overflow-wrap: anywhere;
+  border-bottom: 1px dotted var(--muted);
+}
+
+#recieptArea h2::before,
+#recieptArea h3::before,
+#recieptArea h4::before {
+  flex: none;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+#customerName::before  { content: "Name"; }
+#phoneNumber::before   { content: "Phone"; }
+#pizzaType::before     { content: "Pizza"; }
+#pizzaQuantity::before { content: "Quantity"; }
+#subtotal::before      { content: "Subtotal"; }
+#tax::before           { content: "Tax"; }
+#finalTotal::before    { content: "Total"; }
+
+/* Dashed break between who ordered and what they ordered */
+#recieptArea #pizzaType {
+  margin-top: 1rem;
+  padding-top: 1.1rem;
+  border-top: 2px dashed var(--char);
+}
+
+#recieptArea #pizzaQuantity {
+  border-bottom: 0;
+}
+
+/* Totals: dashed break, then subtotal, tax and the final total */
+#recieptArea #subtotal {
+  margin-top: 1rem;
+  padding-top: 1.1rem;
+  border-top: 2px dashed var(--char);
+}
+
+#recieptArea #tax {
+  border-bottom: 0;
+}
+
+#recieptArea #finalTotal {
+  margin-top: 0.5rem;
+  padding: 1rem 0 0;
+  font-size: 1.35rem;
+  color: var(--tomato);
+  border-top: 2px solid var(--char);
+  border-bottom: 0;
+}
+
+#recieptArea #finalTotal::before {
+  font-weight: 700;
+  color: var(--char);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 400px) {
+  #recieptArea {
+    padding: 1.75rem 1.25rem 2rem;
+  }
+
+  #recieptArea h1 {
+    font-size: 1.25rem;
+  }
+}
+
+/* ---------- Printing: just the receipt, no tablecloth ---------- */
+@media print {
+  body {
+    background: none;
+    min-height: 0;
+    padding: 0;
+  }
+
+  #recieptArea {
+    filter: none;
+    max-width: none;
+  }
+
+  #recieptArea::before,
+  #recieptArea::after {
+    display: none;
+  }
+}
