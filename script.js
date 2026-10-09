@@ -66,10 +66,15 @@ function validateForm() {
     if (phoneNumberPattern.test(phoneNumberObj.value)) {
         phoneNumberValidated = true
         console.log("Phone number passed")
+        
     }
     else {
         phoneNumberValidated = false
         console.log("phone number failed")
+        phoneNumberObj.classList.add("alert", "alert-danger")
+        phoneNumberObj.value = ""
+        phoneNumberObj.placeholder = "ENTER A PHONE NUMBER HERE IN THE PATTERN xxx-xxx-xxxx"
+        
 
     }
 
@@ -92,6 +97,8 @@ function validateForm() {
         console.log("Pizza Quantity passed")
     }
 
+    if ()
+
 }
 
 
@@ -102,6 +109,7 @@ function clearErrors() {
     customerNameObj.placeholder = "Enter your name"
 
     phoneNumberObj.classList = ""
+    phoneNumberObj.placeholder = "XXX-XXX-XXXX"
 
     pizzaSelectObj.classList = ""
 
